@@ -30,7 +30,7 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-padding-top: 2rem; /* offset for smooth scrolling to sections */
+    scroll-padding-top: 2rem;
 }
 
 body {
@@ -41,16 +41,14 @@ body {
     overflow-x: hidden;
 }
 
-/* Layout Principal */
 .app-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* Content Area */
 .content {
     flex: 1;
-    margin-left: 280px; /* Sidebar width */
+    margin-left: 280px;
     padding: 2.5rem;
     max-width: 1400px;
 }
@@ -87,7 +85,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
     .content {
         margin-left: 240px;

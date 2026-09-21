@@ -50,7 +50,6 @@
     line-height: 1.2;
 }
 
-/* Sections spécifiques pour les taux de change */
 .exchange-rates-section {
     margin-top: 2rem;
 }
@@ -98,7 +97,6 @@
     font-style: italic;
 }
 
-/* Animations d'update (Flash) */
 @keyframes flash-green {
     0% { color: var(--success-color); transform: scale(1.05); }
     100% { color: var(--text-primary); transform: scale(1); }
@@ -117,7 +115,6 @@
     animation: flash-red 1s ease-out;
 }
 
-/* Animation Highlight (quand on clique sur la sidebar) */
 @keyframes card-highlight {
     0% { 
         box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); 

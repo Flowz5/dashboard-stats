@@ -62,7 +62,7 @@
 
 .sub-menu li a {
     display: block;
-    padding: 0.4rem 1.5rem 0.4rem 3rem; /* Indentation */
+    padding: 0.4rem 1.5rem 0.4rem 3rem;
     color: var(--text-sidebar);
     text-decoration: none;
     font-size: 0.9rem;
@@ -92,7 +92,6 @@
     background-color: var(--accent-color);
 }
 
-/* Scrollbar personnalisée pour la sidebar */
 .sidebar::-webkit-scrollbar {
     width: 6px;
 }
