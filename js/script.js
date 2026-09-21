@@ -13,10 +13,10 @@ const indicators = {
 };
 
 const fallbackData = {
-    'unemployment': { 'eu': 5.92, 'fr': 7.30, 'us': 3.80, 'cn': 5.20 },
-    'inflation': { 'eu': 2.40, 'fr': 2.10, 'us': 3.10, 'cn': 0.20 },
-    'trade': { 'eu': null, 'fr': -95000000000, 'us': -773000000000, 'cn': 823000000000 },
-    'gdp': { 'eu': 18350000000000, 'fr': 3030000000000, 'us': 27360000000000, 'cn': 17790000000000 }
+    'unemployment': { 'eu': 5.92, 'fr': 7.54, 'us': 4.19, 'cn': 4.61 },
+    'inflation': { 'eu': 2.46, 'fr': 0.94, 'us': 3.10, 'cn': 0.05 },
+    'trade': { 'eu': 140000000000, 'fr': -13691000000, 'us': -773000000000, 'cn': 816189000000 },
+    'gdp': { 'eu': 21243000000000, 'fr': 3366000000000, 'us': 30769000000000, 'cn': 19498000000000 }
 };
 
 let lastExchangeRates = {
@@ -48,7 +48,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 async function fetchWorldBankAll(indicatorCode, indicatorId) {
     try {
-        const url = `https://api.worldbank.org/v2/country/all/indicator/${indicatorCode}?format=json&date=2023:2024&per_page=1000`;
+        const url = `https://api.worldbank.org/v2/country/all/indicator/${indicatorCode}?format=json&date=2020:2026&per_page=1000`;
         
         const response = await fetch(url);
         if (!response.ok) throw new Error('API Error');
@@ -63,7 +63,7 @@ async function fetchWorldBankAll(indicatorCode, indicatorId) {
                     countryRecords.sort((a, b) => parseInt(b.date) - parseInt(a.date));
                     results[regionId] = countryRecords[0].value;
                 } else {
-                    results[regionId] = null;
+                    results[regionId] = fallbackData[indicatorId][regionId];
                 }
             }
             return results;
@@ -75,8 +75,7 @@ async function fetchWorldBankAll(indicatorCode, indicatorId) {
 }
 
 async function loadMacroData() {
-    for (const [indicatorId, indicatorCode] of Object.entries(indicators)) {
-        await sleep(500);
+    const promises = Object.entries(indicators).map(async ([indicatorId, indicatorCode]) => {
         const bulkData = await fetchWorldBankAll(indicatorCode, indicatorId);
         
         for (const regionId of Object.keys(regions)) {
@@ -84,11 +83,16 @@ async function loadMacroData() {
             const element = document.getElementById(elementId);
             
             if (element) {
-                const value = bulkData[regionId] !== undefined ? bulkData[regionId] : null;
+                let value = bulkData[regionId];
+                if (value === null || value === undefined) {
+                    value = fallbackData[indicatorId][regionId];
+                }
                 element.textContent = formatNumber(value, indicatorId);
             }
         }
-    }
+    });
+
+    await Promise.all(promises);
 }
 
 function updateLiveValue(elementId, newValue, currency) {
