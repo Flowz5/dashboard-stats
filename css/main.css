@@ -120,4 +120,10 @@ body {
         margin-left: 0;
         padding: 1rem;
     }
+    .main-header h1 {
+        font-size: 1.75rem;
+    }
+    .main-header p {
+        font-size: 1rem;
+    }
 }

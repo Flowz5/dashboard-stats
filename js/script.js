@@ -174,4 +174,25 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchExchangeRates();
     
     setInterval(fetchExchangeRates, 15000);
+    
+    const burgerBtn = document.getElementById('burger-btn');
+    const sidebar = document.getElementById('sidebar');
+    
+    if (burgerBtn && sidebar) {
+        burgerBtn.addEventListener('click', () => {
+            burgerBtn.classList.toggle('open');
+            sidebar.classList.toggle('open');
+        });
+        
+        // Close sidebar when clicking a link
+        const navLinks = sidebar.querySelectorAll('a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    burgerBtn.classList.remove('open');
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+    }
 });
