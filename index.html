@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord Économique</title>
+    <!-- Import des différentes feuilles de style -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="css/cards.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>EcoStats</h2>
+                <p>Données Mondiales</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <!-- Europe -->
+                <div class="nav-group">
+                    <a href="#europe" class="nav-title">🇪🇺 Zone Euro / Europe</a>
+                    <ul class="sub-menu">
+                        <li><a href="#eu-unemployment-card" onclick="highlight('eu-unemployment-card')">Chômage</a></li>
+                        <li><a href="#eu-inflation-card" onclick="highlight('eu-inflation-card')">Inflation</a></li>
+                        <li><a href="#eu-trade-card" onclick="highlight('eu-trade-card')">Balance Commerciale</a></li>
+                        <li><a href="#eu-gdp-card" onclick="highlight('eu-gdp-card')">PIB</a></li>
+                        <li><a href="#exchange-rates-card" onclick="highlight('exchange-rates-card')">Taux de Change</a></li>
+                    </ul>
+                </div>
+
+                <!-- France -->
+                <div class="nav-group">
+                    <a href="#france" class="nav-title">🇫🇷 France</a>
+                    <ul class="sub-menu">
+                        <li><a href="#fr-unemployment-card" onclick="highlight('fr-unemployment-card')">Chômage</a></li>
+                        <li><a href="#fr-inflation-card" onclick="highlight('fr-inflation-card')">Inflation</a></li>
+                        <li><a href="#fr-trade-card" onclick="highlight('fr-trade-card')">Balance Commerciale</a></li>
+                        <li><a href="#fr-gdp-card" onclick="highlight('fr-gdp-card')">PIB</a></li>
+                    </ul>
+                </div>
+
+                <!-- USA -->
+                <div class="nav-group">
+                    <a href="#usa" class="nav-title">🇺🇸 États-Unis</a>
+                    <ul class="sub-menu">
+                        <li><a href="#us-unemployment-card" onclick="highlight('us-unemployment-card')">Chômage</a></li>
+                        <li><a href="#us-inflation-card" onclick="highlight('us-inflation-card')">Inflation</a></li>
+                        <li><a href="#us-trade-card" onclick="highlight('us-trade-card')">Balance Commerciale</a></li>
+                        <li><a href="#us-gdp-card" onclick="highlight('us-gdp-card')">PIB</a></li>
+                    </ul>
+                </div>
+
+                <!-- Chine -->
+                <div class="nav-group">
+                    <a href="#china" class="nav-title">🇨🇳 Chine</a>
+                    <ul class="sub-menu">
+                        <li><a href="#cn-unemployment-card" onclick="highlight('cn-unemployment-card')">Chômage</a></li>
+                        <li><a href="#cn-inflation-card" onclick="highlight('cn-inflation-card')">Inflation</a></li>
+                        <li><a href="#cn-trade-card" onclick="highlight('cn-trade-card')">Balance Commerciale</a></li>
+                        <li><a href="#cn-gdp-card" onclick="highlight('cn-gdp-card')">PIB</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <header class="main-header">
+                <h1>Indicateurs Économiques en Temps Réel</h1>
+                <p>Explorez les statistiques fiables fournies par la Banque Mondiale et les taux de change mis à jour automatiquement.</p>
+            </header>
+            
+            <div class="dashboard">
+
+                <!-- EUROPE -->
+                <section class="region-section" id="europe">
+                    <h2 class="region-title">🇪🇺 Zone Euro / Europe</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" id="eu-unemployment-card">
+                            <span class="label">Chômage</span>
+                            <span class="value" id="eu-unemployment">-- %</span>
+                        </div>
+                        <div class="stat-card" id="eu-inflation-card">
+                            <span class="label">Inflation</span>
+                            <span class="value" id="eu-inflation">-- %</span>
+                        </div>
+                        <div class="stat-card" id="eu-trade-card">
+                            <span class="label">Balance Comm.</span>
+                            <span class="value" id="eu-trade">-- Mds $</span>
+                        </div>
+                        <div class="stat-card" id="eu-gdp-card">
+                            <span class="label">PIB</span>
+                            <span class="value" id="eu-gdp">-- Trillions $</span>
+                        </div>
+                    </div>
+
+                    <div class="exchange-rates-section stat-card" id="exchange-rates-card">
+                        <h3>Taux de Change (Temps Réel)</h3>
+                        <div class="exchange-grid">
+                            <div class="exchange-item live">
+                                <span class="label">EUR / USD</span>
+                                <span class="value live-value" id="eur-usd">Chargement...</span>
+                            </div>
+                            <div class="exchange-item live">
+                                <span class="label">EUR / JPY</span>
+                                <span class="value live-value" id="eur-jpy">Chargement...</span>
+                            </div>
+                        </div>
+                        <p class="api-note" id="exchange-api-status">Données en direct via Frankfurter API</p>
+                    </div>
+                </section>
+
+                <!-- FRANCE -->
+                <section class="region-section" id="france">
+                    <h2 class="region-title">🇫🇷 France</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" id="fr-unemployment-card">
+                            <span class="label">Chômage</span>
+                            <span class="value" id="fr-unemployment">-- %</span>
+                        </div>
+                        <div class="stat-card" id="fr-inflation-card">
+                            <span class="label">Inflation</span>
+                            <span class="value" id="fr-inflation">-- %</span>
+                        </div>
+                        <div class="stat-card" id="fr-trade-card">
+                            <span class="label">Balance Comm.</span>
+                            <span class="value" id="fr-trade">-- Mds $</span>
+                        </div>
+                        <div class="stat-card" id="fr-gdp-card">
+                            <span class="label">PIB</span>
+                            <span class="value" id="fr-gdp">-- Trillions $</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- USA -->
+                <section class="region-section" id="usa">
+                    <h2 class="region-title">🇺🇸 États-Unis</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" id="us-unemployment-card">
+                            <span class="label">Chômage</span>
+                            <span class="value" id="us-unemployment">-- %</span>
+                        </div>
+                        <div class="stat-card" id="us-inflation-card">
+                            <span class="label">Inflation</span>
+                            <span class="value" id="us-inflation">-- %</span>
+                        </div>
+                        <div class="stat-card" id="us-trade-card">
+                            <span class="label">Balance Comm.</span>
+                            <span class="value" id="us-trade">-- Mds $</span>
+                        </div>
+                        <div class="stat-card" id="us-gdp-card">
+                            <span class="label">PIB</span>
+                            <span class="value" id="us-gdp">-- Trillions $</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CHINE -->
+                <section class="region-section" id="china">
+                    <h2 class="region-title">🇨🇳 Chine</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card" id="cn-unemployment-card">
+                            <span class="label">Chômage</span>
+                            <span class="value" id="cn-unemployment">-- %</span>
+                        </div>
+                        <div class="stat-card" id="cn-inflation-card">
+                            <span class="label">Inflation</span>
+                            <span class="value" id="cn-inflation">-- %</span>
+                        </div>
+                        <div class="stat-card" id="cn-trade-card">
+                            <span class="label">Balance Comm.</span>
+                            <span class="value" id="cn-trade">-- Mds $</span>
+                        </div>
+                        <div class="stat-card" id="cn-gdp-card">
+                            <span class="label">PIB</span>
+                            <span class="value" id="cn-gdp">-- Trillions $</span>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <footer class="main-footer">
+                <p>Sources : <strong>World Bank API</strong> (Macroéconomie) | <strong>ExchangeRate-API</strong> (Change)</p>
+            </footer>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>

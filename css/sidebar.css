@@ -1,0 +1,123 @@
+.sidebar {
+    width: 280px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.sidebar-header {
+    padding: 2rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 0.25rem;
+}
+
+.sidebar-header p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    padding: 1.5rem 0;
+}
+
+.nav-group {
+    margin-bottom: 1.5rem;
+}
+
+.nav-title {
+    display: block;
+    padding: 0.5rem 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed);
+}
+
+.nav-title:hover {
+    background-color: var(--bg-main);
+}
+
+.sub-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0.25rem 0 0 0;
+}
+
+.sub-menu li a {
+    display: block;
+    padding: 0.4rem 1.5rem 0.4rem 3rem; /* Indentation */
+    color: var(--text-sidebar);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all var(--transition-speed);
+    position: relative;
+}
+
+.sub-menu li a:before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    transition: background-color var(--transition-speed);
+}
+
+.sub-menu li a:hover {
+    color: var(--accent-color);
+    background-color: var(--accent-light);
+}
+
+.sub-menu li a:hover:before {
+    background-color: var(--accent-color);
+}
+
+/* Scrollbar personnalisée pour la sidebar */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 3px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+}
