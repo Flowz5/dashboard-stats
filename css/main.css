@@ -65,6 +65,26 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.api-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 10px;
+}
+
+.data-disclaimer {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-muted);
+}
+
+.data-date {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    margin-top: 4px;
+}
+
 .main-header p {
     color: var(--text-secondary);
     font-size: 1.1rem;

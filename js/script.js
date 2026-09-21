@@ -61,16 +61,29 @@ async function fetchWorldBankAll(indicatorCode, indicatorId) {
                 const countryRecords = records.filter(r => r.countryiso3code === isoCode && r.value !== null);
                 if (countryRecords.length > 0) {
                     countryRecords.sort((a, b) => parseInt(b.date) - parseInt(a.date));
-                    results[regionId] = countryRecords[0].value;
+                    results[regionId] = {
+                        value: countryRecords[0].value,
+                        date: countryRecords[0].date
+                    };
                 } else {
-                    results[regionId] = fallbackData[indicatorId][regionId];
+                    results[regionId] = {
+                        value: fallbackData[indicatorId][regionId],
+                        date: "2025"
+                    };
                 }
             }
             return results;
         }
         throw new Error('Données vides');
     } catch (error) {
-        return fallbackData[indicatorId] || {};
+        const errResults = {};
+        for (const regionId of Object.keys(regions)) {
+            errResults[regionId] = {
+                value: fallbackData[indicatorId][regionId],
+                date: "2025"
+            };
+        }
+        return errResults;
     }
 }
 
@@ -81,13 +94,22 @@ async function loadMacroData() {
         for (const regionId of Object.keys(regions)) {
             const elementId = `${regionId}-${indicatorId}`;
             const element = document.getElementById(elementId);
+            const dateElement = document.getElementById(`${elementId}-date`);
             
             if (element) {
-                let value = bulkData[regionId];
+                let dataObj = bulkData[regionId];
+                let value = dataObj ? dataObj.value : null;
+                let date = dataObj ? dataObj.date : "";
+                
                 if (value === null || value === undefined) {
                     value = fallbackData[indicatorId][regionId];
+                    date = "2025";
                 }
+                
                 element.textContent = formatNumber(value, indicatorId);
+                if (dateElement && date) {
+                    dateElement.textContent = `Donnée de ${date}`;
+                }
             }
         }
     });
