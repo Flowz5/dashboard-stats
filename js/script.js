@@ -56,12 +56,14 @@ async function fetchWorldBankBulk(indicatorCode) {
             if (!response.ok) throw new Error('API Error');
             data = await response.json();
         } catch (err) {
-            // Si l'API de la Banque Mondiale bloque la requête (CORS missing header fréquent sur file://), on passe par un proxy public
-            console.warn(`Erreur CORS/Réseau sur ${indicatorCode}, tentative via Proxy...`);
-            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+            // L'API de la Banque Mondiale a des problèmes CORS chroniques, même depuis GitHub Pages.
+            // Le proxy allorigins est actuellement en panne (erreur 522). On passe sur corsproxy.io !
+            console.warn(`Erreur CORS/Réseau sur ${indicatorCode}, tentative via Proxy 2...`);
+            // corsproxy.io renvoie directement la réponse brute du serveur distant avec les bons headers CORS
+            const proxyUrl = `https://corsproxy.io/?${encodeURIComponent(url)}`;
             const response = await fetch(proxyUrl);
-            const proxyData = await response.json();
-            data = JSON.parse(proxyData.contents);
+            if (!response.ok) throw new Error('Proxy Error');
+            data = await response.json();
         }
         
         const results = {};
